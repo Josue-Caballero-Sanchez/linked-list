@@ -143,24 +143,21 @@ export class LinkedList{
         return null;
     }
 
-    toString(){
-        if(this.head === null){
-            return null;
+    toString() {
+        if (this.head === null) {
+            return ""; // Empty list
         }
 
-        let temp = this.head
-        let string = "";
-
-        while(temp.next !== null){
-            string = string + "(" + temp.value + ") -> ";
-            temp = temp.next;
+        let current = this.head;
+        let result = "";
+        while (current) {
+            result += current.value;
+            current = current.next;
+            if (current) {
+                result += " -> "; 
+            }
         }
-
-        if(temp.value !== null){
-            string =  string + "(" + temp.value + ")";
-        }
-
-        return string;
+        return result;
     }
 
     insertAt(value, index){
@@ -245,6 +242,49 @@ export class LinkedList{
         }
 
     }
+
+    testLinkedList() {
+        console.log("Testing LinkedList methods:");
+
+        // Append
+        this.append("apple");
+        this.append("banana");
+        this.append("cherry");
+        console.log("After append:", this.toString()); // Expected: apple -> banana -> cherry
+
+        // Prepend
+        this.prepend("date");
+        console.log("After prepend:", this.toString()); // Expected: date -> apple -> banana -> cherry
+
+        // Size
+        console.log("Size:", this.size()); // Expected: 4
+
+        // Get Head and Tail
+        console.log("Head:", this.getHead().value); // Expected: date
+        console.log("Tail:", this.getTail().value); // Expected: cherry
+
+        // Get element at index
+        console.log("Element at index 1:", this.get(1).value); // Expected: apple
+
+        // Pop (remove last)
+        this.pop();
+        console.log("After pop:", this.toString()); // Expected: date -> apple -> banana
+
+        // Contains
+        console.log("Contains 'banana':", this.contains("banana")); // Expected: true
+        console.log("Contains 'cherry':", this.contains("cherry")); // Expected: false
+
+        // Find Index Of
+        console.log("Index of 'apple':", this.findIndexOf("apple")); // Expected: 1
+
+        // Insert At
+        this.insertAt("elderberry", 2);
+        console.log("After insertAt:", this.toString()); // Expected: date -> apple -> elderberry -> banana
+
+        // Remove At
+        this.removeAt(1); 
+        console.log("After removeAt:", this.toString()); // Expected: date -> elderberry -> banana
+    }
 }
 
 class Node{
@@ -253,5 +293,3 @@ class Node{
         this.next = null;
     }
 }
-
-
